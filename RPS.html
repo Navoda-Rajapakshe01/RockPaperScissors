@@ -10,11 +10,33 @@
     <button onclick="randomNumber('Rock')">Rock</button>
     <Button onclick="randomNumber('Paper')">Paper</Button>
     <button onclick="randomNumber('Scissors')">Scissors</button>
+    <button onclick="reset()">Reset</button>
+    
+    <div class="choices">
+        <p>Player Choice: <span id="pChoice"></span></p>
+        <p>Computer Choice: <span id="cChoice"></span></p>
+    </div>
+
+    <div class="result">
+        <p>Wins: <span id="win">0</span></p>
+        <p>Losses: <span id="lose">0</span></p>
+        <p>Draws: <span id="draw">0</span></p>
+    </div>
 
     <script>
+    
+        //display the score of the game
+        const score={
+            wins: 0,
+            losses: 0,
+            draws: 0
+        }; 
+
         function randomNumber(playerChoice){
             const random = Math.random();
+            let result = '';
             let computerChoice='';
+
             if(random >=0 && random <= 1/3){
                 computerChoice = 'Rock';
             }
@@ -28,21 +50,51 @@
             console.log('Computer Choice: '+computerChoice);
 
             if(playerChoice === computerChoice){
-                console.log('Draw');
+                result= 'Draw';
             }
             else if(playerChoice === 'Rock' && computerChoice === 'Scissors'){
-                console.log('Player Wins');
+                result= 'Player Wins';
             }
             else if(playerChoice === 'Paper' && computerChoice === 'Rock'){
-                console.log('Player Wins');
+                result= 'Player Wins';
             }
             else if(playerChoice === 'Scissors' && computerChoice === 'Paper'){
-                console.log('Player Wins');
+                result= 'Player Wins';
             }
             else{
-                console.log('Computer Wins');
+                result= 'Computer Wins';
             }
+
+            //score calculation
+            if(result === 'Player Wins'){
+                score.wins++;
+            }
+            else if(result === 'Computer Wins'){
+                score.losses++;
+            }
+            else{
+                score.draws++;
+            }
+
+            
+    document.getElementById('pChoice').innerText = playerChoice;
+    document.getElementById('cChoice').innerText = computerChoice;
+    document.getElementById('win').innerText = score.wins;
+    document.getElementById('lose').innerText = score.losses;
+    document.getElementById('draw').innerText = score.draws;
     }
+
+    function reset(){
+        score.wins=0;
+        score.losses=0;
+        score.draws=0;
+        document.getElementById('win').innerText = score.wins;
+        document.getElementById('lose').innerText = score.losses;
+        document.getElementById('draw').innerText = score.draws;
+        document.getElementById('pChoice').innerText = '';
+        document.getElementById('cChoice').innerText = '';
+    }
+
     </script>
 </body>
 </html>
